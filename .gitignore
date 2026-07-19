@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Package tarballs
+*.tgz
+
+# Codemod Forge runtime artifacts
+.codemod-forge/
+
+# TypeScript cache
+.tsc/
+*.tsbuildinfo
+
+# Agent config (local only)
+.agents/

@@ -1,0 +1,17 @@
+{
+  "outputDirectory": "web",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/import", "destination": "/import.html" },
+    { "source": "/intelligence", "destination": "/intelligence.html" },
+    { "source": "/opportunities", "destination": "/opportunities.html" },
+    { "source": "/plan", "destination": "/plan.html" },
+    { "source": "/risk", "destination": "/risk.html" },
+    { "source": "/preview", "destination": "/preview.html" },
+    { "source": "/execute", "destination": "/execute.html" },
+    { "source": "/verify", "destination": "/verify.html" },
+    { "source": "/report", "destination": "/report.html" },
+    { "source": "/download", "destination": "/download.html" },
+    { "source": "/docs", "destination": "/docs.html" }
+  ]
+}

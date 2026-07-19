@@ -1,0 +1,66 @@
+{
+  "name": "codemod-forge",
+  "version": "0.3.0",
+  "description": "Autonomous migration engineer that reads release notes, generates AST codemods, validates them, and applies safe changes.",
+  "type": "module",
+  "main": "./dist/cli.js",
+  "types": "./dist/cli.d.ts",
+  "bin": {
+    "codemod-forge": "./dist/cli.js",
+    "forge": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "AGENTS.md",
+    "DEVPOST_SUBMISSION.md",
+    "demo",
+    ".env.example"
+  ],
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsup src/cli.ts --format esm --dts --clean --out-dir dist --external typescript",
+    "start": "node dist/cli.js",
+    "test": "npm run lint",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "pack:local": "npm run build && npm pack"
+  },
+  "keywords": [
+    "codemod",
+    "migration",
+    "ast",
+    "codex",
+    "typescript",
+    "react",
+    "nextjs",
+    "developer-tools"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "chalk": "^5.3.0",
+    "cheerio": "^1.0.0",
+    "cli-highlight": "^2.1.11",
+    "commander": "^12.1.0",
+    "diff": "^9.0.0",
+    "glob": "^11.0.0",
+    "openai": "^4.70.0",
+    "ora": "^8.1.0",
+    "simple-git": "^3.25.0",
+    "ts-morph": "^25.0.0"
+  },
+  "devDependencies": {
+    "@types/diff": "^7.0.0",
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
+  }
+}
