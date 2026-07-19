@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repository Intelligence — CodeMod Forge</title>
+  <meta name="description" content="Automated repository analysis: health scores, architecture overview, deprecated APIs, security issues, and migration readiness." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />$([char]10)  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav" id="main-nav"></nav>
+
+  <div class="page-wrap">
+    <div class="container">
+      <div class="step-indicator" id="step-indicator"></div>
+      <div class="page-header anim">
+        <div class="badge badge-green">Analysis Complete</div>
+        <h1>Repository Intelligence</h1>
+        <p>React 18 &middot; TypeScript &middot; 728 files &middot; 129 components &middot; Health 86/100</p>
+      </div>
+
+      <!-- Hero Metrics Grid -->
+      <div class="grid-3" style="margin-bottom:20px">
+        <!-- Health Score with circular progress -->
+        <div class="card anim d1" style="text-align:center;padding:28px">
+          <div class="card-label">Repository Health</div>
+          <div class="circular-progress" style="margin-bottom:8px">
+            <svg viewBox="0 0 100 100">
+              <circle class="track" cx="50" cy="50" r="42" />
+              <circle class="fill" cx="50" cy="50" r="42"
+                stroke-dasharray="263.9"
+                stroke-dashoffset="37"
+                id="health-ring" />
+            </svg>
+            <div class="value" id="health-value" style="color:var(--green)">86</div>
+          </div>
+          <span class="tag tag-green">Good</span>
+        </div>
+
+        <!-- Languages -->
+        <div class="card anim d2" style="padding:28px">
+          <div class="card-label">Languages</div>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+                <span style="font-weight:600">TypeScript</span><span style="color:var(--cyan)">72%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill cyan" id="lang-ts" style="width:72%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+                <span style="font-weight:600">React JSX</span><span style="color:var(--violet)">18%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill violet" id="lang-jsx" style="width:18%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+                <span style="font-weight:600">CSS / SCSS</span><span style="color:var(--green)">7%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill green" id="lang-css" style="width:7%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+                <span style="font-weight:600">Other</span><span style="color:var(--t3)">3%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" id="lang-other" style="width:3%;background:var(--t3)"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Files & Components -->
+        <div class="card anim d3" style="padding:28px">
+          <div class="card-label">Codebase</div>
+          <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
+            <div>
+              <div class="card-value" id="files-count" style="font-size:32px">728</div>
+              <div class="card-sub">Total Files</div>
+            </div>
+            <div class="divider" style="margin:0"></div>
+            <div>
+              <div class="card-value" id="comp-count" style="font-size:32px;color:var(--cyan)">129</div>
+              <div class="card-sub">Components Detected</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:20px">
+        <!-- Dependencies -->
+        <div class="card anim d4" style="padding:28px">
+          <div class="card-label">Dependencies</div>
+          <div class="card-value" id="dep-count" style="margin-bottom:4px">113</div>
+          <div class="card-sub">12 require updates</div>
+          <span class="tag tag-amber" style="margin-top:8px">Moderate</span>
+        </div>
+
+        <!-- Deprecated APIs -->
+        <div class="card anim d5" style="padding:28px">
+          <div class="card-label">Deprecated APIs</div>
+          <div class="card-value" style="color:var(--amber)" id="dep-apis">24</div>
+          <div class="card-sub" style="margin-top:8px">
+            <div style="display:flex;flex-direction:column;gap:4px;font-size:12px">
+              <span>forwardRef <span style="color:var(--t3)">(8x)</span></span>
+              <span>defaultProps <span style="color:var(--t3)">(6x)</span></span>
+              <span>PropTypes <span style="color:var(--t3)">(5x)</span></span>
+              <span>useRef without init <span style="color:var(--t3)">(3x)</span></span>
+              <span style="color:var(--t3)">+ 2 more patterns</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security -->
+        <div class="card anim d6" style="padding:28px">
+          <div class="card-label">Security Issues</div>
+          <div class="card-value" style="color:var(--amber)" id="sec-count">3</div>
+          <div class="card-sub" style="margin-top:8px">
+            <div style="display:flex;flex-direction:column;gap:4px;font-size:12px">
+              <span><span class="tag tag-amber" style="font-size:10px;padding:1px 6px">medium</span> dangerouslySetInnerHTML</span>
+              <span><span class="tag tag-amber" style="font-size:10px;padding:1px 6px">medium</span> innerHTML assignment</span>
+              <span><span class="tag tag-red" style="font-size:10px;padding:1px 6px">high</span> document.write usage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:32px">
+        <!-- Migration Readiness -->
+        <div class="card anim d7" style="padding:28px;text-align:center">
+          <div class="card-label">Migration Readiness</div>
+          <div class="card-value" style="color:var(--cyan)" id="ready-pct">96%</div>
+          <div class="card-sub">Ready for React 19</div>
+        </div>
+
+        <!-- Estimated Time Saved -->
+        <div class="card anim d8" style="padding:28px;text-align:center">
+          <div class="card-label">Estimated Time Saved</div>
+          <div class="card-value" style="color:var(--green)">18<span style="font-size:18px;color:var(--t2)"> hrs</span></div>
+          <div class="card-sub">vs manual migration</div>
+        </div>
+
+        <!-- Transform Confidence -->
+        <div class="card anim d9" style="padding:28px;text-align:center">
+          <div class="card-label">Transform Confidence</div>
+          <div class="card-value" style="color:var(--violet)">97%</div>
+          <div class="card-sub">Across all transforms</div>
+        </div>
+      </div>
+
+      <!-- Health Breakdown -->
+      <div class="card anim d7" style="padding:28px;margin-bottom:32px">
+        <div class="card-label" style="margin-bottom:16px">Health Score Breakdown</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+              <span>Architecture</span><span style="color:var(--green)">92</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill green" style="width:92%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+              <span>Dependencies</span><span style="color:var(--green)">88</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill green" style="width:88%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+              <span>Security</span><span style="color:var(--amber)">79</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill amber" style="width:79%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+              <span>Maintainability</span><span style="color:var(--green)">84</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill green" style="width:84%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-p" onclick="nextPage('/opportunities.html')">View Migration Opportunities</button>
+        <button class="btn btn-s" onclick="prevPage('/import.html')">Back</button>
+      </div>
+
+      <div style="height:48px"></div>
+    </div>
+  </div>
+
+  <footer class="footer" id="main-footer"></footer>
+
+  <script src="app.js"></script>
+  <script>document.addEventListener("DOMContentLoaded",function(){(function(){
+    // Auto-advance in demo mode
+    if (isDemoMode()) {
+      // Add slight delay for viewing
+    }
+  })();});</script>
+</body>
+</html>

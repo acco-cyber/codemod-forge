@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Migration Opportunities — CodeMod Forge</title>
+  <meta name="description" content="Recommended migration opportunities with effort estimates, risk levels, and confidence scores." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />$([char]10)  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav" id="main-nav"></nav>
+
+  <div class="page-wrap">
+    <div class="container">
+      <div class="step-indicator" id="step-indicator"></div>
+      <div class="page-header anim">
+        <h1>Migration Opportunities</h1>
+        <p>CodeMod Forge analyzed your repository and recommends the following migrations. Select the ones you'd like to proceed with.</p>
+      </div>
+
+      <!-- Summary Bar -->
+      <div class="card anim d1" style="padding:16px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px;font-size:13px">
+          <span style="color:var(--t3)">Detected:</span>
+          <span style="font-weight:600"><span style="color:var(--cyan)">6</span> opportunities</span>
+          <span class="tag tag-green">3 recommended</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-sm btn-s" id="select-all">Select All</button>
+          <button class="btn btn-sm btn-s" id="select-recommended">Recommended Only</button>
+        </div>
+      </div>
+
+      <!-- Opportunity Cards -->
+      <div class="grid-2" id="opp-grid" style="margin-bottom:32px">
+
+        <div class="card opp-card selected anim d2" data-opp="react">
+          <span class="opp-check">&#10003;</span>
+          <span class="tag tag-green" style="margin-bottom:8px">Recommended</span>
+          <div class="opp-title">React 18 &rarr; React 19</div>
+          <div class="opp-desc">Migrate forwardRef, defaultProps, PropTypes, and useRef patterns to React 19 conventions.</div>
+          <div class="opp-meta">
+            <span class="opp-meta-item" style="color:var(--green)">&#9201; 2h effort</span>
+            <span class="opp-meta-item" style="color:var(--green)">&#9654; Low risk</span>
+            <span class="opp-meta-item" style="color:var(--violet)">98% confidence</span>
+            <span class="opp-meta-item" style="color:var(--cyan)">~14h saved</span>
+          </div>
+        </div>
+
+        <div class="card opp-card selected anim d3" data-opp="typescript">
+          <span class="opp-check">&#10003;</span>
+          <span class="tag tag-green" style="margin-bottom:8px">Recommended</span>
+          <div class="opp-title">TypeScript Modernization</div>
+          <div class="opp-desc">Update strict mode settings, remove unnecessary type assertions, adopt satisfies operator.</div>
+          <div class="opp-meta">
+            <span class="opp-meta-item" style="color:var(--green)">&#9201; 1h effort</span>
+            <span class="opp-meta-item" style="color:var(--green)">&#9654; Low risk</span>
+            <span class="opp-meta-item" style="color:var(--violet)">96% confidence</span>
+            <span class="opp-meta-item" style="color:var(--cyan)">~3h saved</span>
+          </div>
+        </div>
+
+        <div class="card opp-card selected anim d4" data-opp="security">
+          <span class="opp-check">&#10003;</span>
+          <span class="tag tag-amber" style="margin-bottom:8px">Recommended</span>
+          <div class="opp-title">Security Patches</div>
+          <div class="opp-desc">Fix dangerouslySetInnerHTML usage, replace innerHTML assignments, remove document.write calls.</div>
+          <div class="opp-meta">
+            <span class="opp-meta-item" style="color:var(--amber)">&#9201; 30m effort</span>
+            <span class="opp-meta-item" style="color:var(--amber)">&#9654; Medium risk</span>
+            <span class="opp-meta-item" style="color:var(--violet)">94% confidence</span>
+            <span class="opp-meta-item" style="color:var(--cyan)">~1h saved</span>
+          </div>
+        </div>
+
+        <div class="card opp-card anim d5" data-opp="eslint">
+          <span class="opp-check">&#10003;</span>
+          <div class="opp-title">ESLint 9 Migration</div>
+          <div class="opp-desc">Migrate from .eslintrc to flat config format, update deprecated rules and plugins.</div>
+          <div class="opp-meta">
+            <span class="opp-meta-item" style="color:var(--green)">&#9201; 45m effort</span>
+            <span class="opp-meta-item" style="color:var(--green)">&#9654; Low risk</span>
+            <span class="opp-meta-item" style="color:var(--violet)">92% confidence</span>
+            <span class="opp-meta-item" style="color:var(--cyan)">~2h saved</span>
+          </div>
+        </div>
+
+        <div class="card opp-card anim d6" data-opp="deprecations">
+          <span class="opp-check">&#10003;</span>
+          <div class="opp-title">API Deprecation Fixes</div>
+          <div class="opp-desc">Replace all 24 deprecated API calls with modern equivalents recommended by React documentation.</div>
+          <div class="opp-meta">
+            <span class="opp-meta-item" style="color:var(--amber)">&#9201; 1.5h effort</span>
+            <span class="opp-meta-item" style="color:var(--green)">&#9654; Low risk</span>
+            <span class="opp-meta-item" style="color:var(--violet)">97% confidence</span>
+            <span class="opp-meta-item" style="color:var(--cyan)">~4h saved</span>
+          </div>
+        </div>
+
+        <div class="card opp-card anim d7" data-opp="nextjs">
+          <span class="opp-check">&#10003;</span>
+          <div class="opp-title">Next.js 14 &rarr; 15</div>
+          <div class="opp-desc">Update async request APIs, migrate to new caching defaults, adopt React 19 features in server components.</div>
+          <div class="opp-meta">
+            <span class="opp-meta-item" style="color:var(--amber)">&#9201; 3h effort</span>
+            <span class="opp-meta-item" style="color:var(--amber)">&#9654; Medium risk</span>
+            <span class="opp-meta-item" style="color:var(--violet)">89% confidence</span>
+            <span class="opp-meta-item" style="color:var(--cyan)">~8h saved</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Summary -->
+      <div class="card" style="padding:20px 24px;margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+        <div style="font-size:14px">
+          <span id="selected-count" style="font-weight:700;color:var(--cyan)">3</span> migrations selected
+          &middot;
+          Estimated total: <span style="font-weight:700;color:var(--green)">~18 hours saved</span>
+        </div>
+        <div style="font-size:13px;color:var(--t3)">
+          CodeMod Forge will generate a detailed execution plan for selected migrations
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-p" onclick="nextPage('/plan.html')">Generate Migration Plan</button>
+        <button class="btn btn-s" onclick="prevPage('/intelligence.html')">Back to Intelligence</button>
+      </div>
+
+      <div style="height:48px"></div>
+    </div>
+  </div>
+
+  <footer class="footer" id="main-footer"></footer>
+
+  <script src="app.js"></script>
+  <script>document.addEventListener("DOMContentLoaded",function(){(function(){
+    // Toggle selection
+    var cards = document.querySelectorAll('.opp-card');
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        card.classList.toggle('selected');
+        updateCount();
+      });
+    });
+
+    function updateCount() {
+      var n = document.querySelectorAll('.opp-card.selected').length;
+      document.getElementById('selected-count').textContent = n;
+    }
+
+    document.getElementById('select-all').addEventListener('click', function () {
+      cards.forEach(function (c) { c.classList.add('selected'); });
+      updateCount();
+    });
+
+    document.getElementById('select-recommended').addEventListener('click', function () {
+      cards.forEach(function (c) {
+        if (c.querySelector('.tag-green') || c.querySelector('.tag-amber')) {
+          c.classList.add('selected');
+        } else {
+          c.classList.remove('selected');
+        }
+      });
+      updateCount();
+    });
+  })();});</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Risk &amp; Impact Analysis — CodeMod Forge</title>
+  <meta name="description" content="Every change explained. Every risk quantified. Full rollback available for all migration transforms." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />$([char]10)  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav" id="main-nav"></nav>
+
+  <div class="page-wrap">
+    <div class="container">
+      <div class="step-indicator" id="step-indicator"></div>
+      <div class="page-header anim">
+        <h1>Risk &amp; Impact Analysis</h1>
+        <p>Every change explained. Every risk quantified. Full rollback available.</p>
+      </div>
+
+      <!-- Summary Stats -->
+      <div class="grid-4 anim d1" style="margin-bottom:24px">
+        <div class="card stat-card">
+          <div class="stat-value" style="color:var(--cyan)">143</div>
+          <div class="stat-label">Files Affected</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-value" style="color:var(--green)">0</div>
+          <div class="stat-label">Breaking Changes</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-value" style="color:var(--green)">12</div>
+          <div class="stat-label">Security Fixes</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-value" style="color:var(--green)">100%</div>
+          <div class="stat-label">Rollback Available</div>
+        </div>
+      </div>
+
+      <!-- Trust Table -->
+      <div class="card anim d2" style="padding:0;overflow-x:auto;margin-bottom:32px">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>File</th>
+              <th>Why It Changed</th>
+              <th>Risk</th>
+              <th>Transform Confidence</th>
+              <th>Rollback</th>
+              <th>Tests</th>
+              <th>Docs</th>
+            </tr>
+          </thead>
+          <tbody id="trust-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Risk Summary -->
+      <div class="card anim d3" style="padding:24px;margin-bottom:32px">
+        <div class="card-label" style="margin-bottom:16px">Risk Distribution</div>
+        <div style="display:flex;gap:24px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:12px;height:12px;border-radius:3px;background:var(--green);display:inline-block"></span>
+            <span style="font-size:13px;color:var(--t2)">Low Risk: <strong style="color:var(--green)">134 files</strong></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:12px;height:12px;border-radius:3px;background:var(--amber);display:inline-block"></span>
+            <span style="font-size:13px;color:var(--t2)">Medium Risk: <strong style="color:var(--amber)">9 files</strong></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:12px;height:12px;border-radius:3px;background:var(--red);display:inline-block"></span>
+            <span style="font-size:13px;color:var(--t2)">High Risk: <strong style="color:var(--red)">0 files</strong></span>
+          </div>
+        </div>
+        <div class="progress-track" style="margin-top:12px;height:8px">
+          <div style="display:flex;height:100%;border-radius:3px;overflow:hidden">
+            <div style="width:93.7%;background:var(--green)"></div>
+            <div style="width:6.3%;background:var(--amber)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-p" onclick="nextPage('/preview.html')">Preview Changes</button>
+        <button class="btn btn-s" onclick="prevPage('/plan.html')">Back to Plan</button>
+      </div>
+
+      <div style="height:48px"></div>
+    </div>
+  </div>
+
+  <footer class="footer" id="main-footer"></footer>
+
+  <script src="app.js"></script>
+  <script>document.addEventListener("DOMContentLoaded",function(){(function(){
+    var trustData = [
+      { f: 'src/components/Button.tsx', why: 'forwardRef deprecated in React 19', r: 'Low', c: '99%', reason: 'Pattern matched React 19 official migration guide', t: 3, doc: 'react.dev/blog/react-19' },
+      { f: 'src/components/Input.tsx', why: 'forwardRef deprecated in React 19', r: 'Low', c: '99%', reason: 'Exact fixture match verified', t: 5, doc: 'react.dev/blog/react-19' },
+      { f: 'src/components/Modal.tsx', why: 'forwardRef + defaultProps removal', r: 'Medium', c: '94%', reason: 'Multiple patterns; manual review suggested for HOC wrapper', t: 2, doc: 'react.dev/blog/react-19' },
+      { f: 'src/hooks/useFocus.ts', why: 'useRef requires initial value', r: 'Low', c: '98%', reason: 'Simple refactor; no side effects detected', t: 1, doc: 'react.dev/reference/useRef' },
+      { f: 'src/components/Alert.tsx', why: 'PropTypes removal', r: 'Low', c: '97%', reason: 'TypeScript types already present; safe removal', t: 4, doc: 'react.dev/blog/react-19' },
+      { f: 'src/components/Card.tsx', why: 'defaultProps deprecated', r: 'Low', c: '99%', reason: 'Direct conversion to ES6 default parameters', t: 2, doc: 'react.dev/blog/react-19' },
+      { f: 'src/app/layout.tsx', why: 'React API update', r: 'Low', c: '96%', reason: 'Next.js layout pattern; verified compatibility', t: 1, doc: 'nextjs.org/docs/app' },
+      { f: 'src/components/Table.tsx', why: 'PropsWithChildren removed', r: 'Medium', c: '92%', reason: 'Complex generics; validator flagged 1 edge case', t: 6, doc: 'react.dev/blog/react-19' },
+      { f: 'src/components/Dialog.tsx', why: 'forwardRef + ref callback', r: 'Medium', c: '91%', reason: 'Ref callback pattern needs careful conversion', t: 3, doc: 'react.dev/blog/react-19' },
+      { f: 'src/components/Tooltip.tsx', why: 'forwardRef deprecated', r: 'Low', c: '98%', reason: 'Standard pattern, fixture validated', t: 2, doc: 'react.dev/blog/react-19' },
+      { f: 'src/utils/render.tsx', why: 'dangerouslySetInnerHTML', r: 'Medium', c: '93%', reason: 'Security fix: replaced with safe rendering utility', t: 4, doc: 'react.dev/reference/dom' },
+      { f: 'src/components/Select.tsx', why: 'defaultProps + PropTypes', r: 'Low', c: '97%', reason: 'Both patterns have direct TS equivalents', t: 3, doc: 'react.dev/blog/react-19' },
+    ];
+
+    var tbody = document.getElementById('trust-body');
+    trustData.forEach(function (row) {
+      var riskClass = row.r === 'Low' ? 'risk-low' : row.r === 'Medium' ? 'risk-med' : 'risk-high';
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td class="file-path">' + row.f + '</td>' +
+        '<td>' + row.why + '</td>' +
+        '<td class="' + riskClass + '" style="font-weight:600">' + row.r + '</td>' +
+        '<td>' + row.c + '<span class="conf-detail">' + row.reason + '</span></td>' +
+        '<td style="color:var(--green);font-weight:600">Available</td>' +
+        '<td>' + row.t + ' tests</td>' +
+        '<td><a href="https://' + row.doc + '" target="_blank" rel="noopener" style="color:var(--cyan);font-size:12px">Docs &rarr;</a></td>';
+      tbody.appendChild(tr);
+    });
+  })();});</script>
+</body>
+</html>

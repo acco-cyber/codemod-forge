@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation — CodeMod Forge</title>
+  <meta name="description" content="Complete documentation for CodeMod Forge: getting started, CLI reference, architecture, and API guide." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />$([char]10)  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav" id="main-nav"></nav>
+
+  <div class="page-wrap">
+    <div class="container">
+      <div class="doc-layout">
+
+        <!-- Sidebar -->
+        <aside class="doc-sidebar">
+          <h4>Getting Started</h4>
+          <a href="#overview" class="active">Overview</a>
+          <a href="#installation">Installation</a>
+          <a href="#quick-start">Quick Start</a>
+          <a href="#api-key">API Key Setup</a>
+
+          <h4>CLI Reference</h4>
+          <a href="#cmd-analyze">forge analyze</a>
+          <a href="#cmd-plan">forge plan</a>
+          <a href="#cmd-migrate">forge migrate</a>
+          <a href="#cmd-verify">forge verify</a>
+          <a href="#cmd-rollback">forge rollback</a>
+          <a href="#cmd-report">forge report</a>
+
+          <h4>Architecture</h4>
+          <a href="#agents">Agent Workflow</a>
+          <a href="#project-structure">Project Structure</a>
+          <a href="#transforms">Transform Engine</a>
+
+          <h4>Advanced</h4>
+          <a href="#custom-guides">Custom Migration Guides</a>
+          <a href="#ci-cd">CI/CD Integration</a>
+          <a href="#faq">FAQ</a>
+        </aside>
+
+        <!-- Content -->
+        <main class="doc-content">
+          <section id="overview">
+            <h2 style="margin-top:0">CodeMod Forge</h2>
+            <p><strong>The Software Migration Engineer.</strong> CodeMod Forge analyzes an entire software repository, identifies modernization opportunities, creates a safe migration strategy, applies repository-wide transformations, validates the results, and delivers a production-ready pull request with a detailed impact report.</p>
+            <div class="card" style="padding:20px;margin-bottom:24px">
+              <div style="font-size:13px;color:var(--t2);line-height:1.8">
+                <strong style="color:var(--cyan)">Not a chatbot.</strong> Not a prompt playground. Not another Copilot clone.<br>
+                CodeMod Forge is a professional engineering platform where every page moves the user through a complete migration workflow.
+              </div>
+            </div>
+          </section>
+
+          <section id="installation">
+            <h2>Installation</h2>
+            <p>CodeMod Forge requires Node.js 18+ and an OpenAI API key.</p>
+            <pre>npm install -g codemod-forge</pre>
+            <p>Or run without installing:</p>
+            <pre>npx codemod-forge analyze --dir ./my-project</pre>
+            <p>Or clone from GitHub:</p>
+            <pre>git clone https://github.com/acco-cyber/codemod-forge.git
+cd codemod-forge
+npm install
+npm run build</pre>
+          </section>
+
+          <section id="quick-start">
+            <h2>Quick Start</h2>
+            <p>The fastest way to see CodeMod Forge in action:</p>
+            <pre># 1. Set your API key
+export OPENAI_API_KEY=sk-...
+
+# 2. Analyze a project
+forge analyze --dir ./my-project
+
+# 3. Run a dry-run migration
+forge migrate react --from 17 --to 19 --dir ./my-project --all --dry-run
+
+# 4. Apply approved changes
+forge migrate react --from 17 --to 19 --dir ./my-project --all --yes</pre>
+            <p>The <code>--dry-run</code> flag previews all changes without modifying files. Always run it first.</p>
+          </section>
+
+          <section id="api-key">
+            <h2>API Key Setup</h2>
+            <p>CodeMod Forge uses CodeMod Engine for semantic analysis. Set your OpenAI API key:</p>
+            <h3>macOS / Linux</h3>
+            <pre>export OPENAI_API_KEY=sk-...</pre>
+            <h3>Windows (PowerShell)</h3>
+            <pre>$env:OPENAI_API_KEY="sk-..."</pre>
+            <h3>.env File</h3>
+            <pre>cp .env.example .env
+# Edit .env and add your key</pre>
+          </section>
+
+          <div class="divider"></div>
+
+          <section id="cmd-analyze">
+            <h2>forge analyze</h2>
+            <p>Scan a repository to detect frameworks, count components, find deprecated APIs, and score health.</p>
+            <pre>forge analyze [options]
+
+Options:
+  -d, --dir &lt;path&gt;    Project directory (default: current)
+  -v, --verbose       Verbose output</pre>
+            <p>Output includes: framework version, language breakdown, file count, component count, deprecated API list, security issues, and health score breakdown (architecture, dependencies, security, maintainability).</p>
+          </section>
+
+          <section id="cmd-plan">
+            <h2>forge plan</h2>
+            <p>Fetch a migration guide, extract breaking changes with CodeMod Engine, and display a structured migration plan.</p>
+            <pre>forge plan &lt;library&gt; [options]
+
+Options:
+  -f, --from &lt;version&gt;   Current version
+  -t, --to &lt;version&gt;     Target version
+  -d, --dir &lt;path&gt;       Project directory
+  -g, --guide &lt;url&gt;      Custom migration guide URL
+  --all                  Select all breaking changes</pre>
+          </section>
+
+          <section id="cmd-migrate">
+            <h2>forge migrate</h2>
+            <p>Run the full migration pipeline: plan, generate transforms, validate, dry-run, and apply.</p>
+            <pre>forge migrate [library] [options]
+
+Options:
+  -f, --from &lt;version&gt;   Current version
+  -t, --to &lt;version&gt;     Target version
+  -d, --dir &lt;path&gt;       Project directory
+  -g, --guide &lt;url&gt;      Custom migration guide URL
+  --dry-run              Preview without applying
+  --all                  Select all breaking changes
+  -y, --yes              Auto-approve safe transforms
+  --no-interactive       Non-interactive mode
+  -v, --verbose          Verbose output</pre>
+            <p>The pipeline runs through 9 agents: Repository Intelligence, Discovery, Planning, Fixture, Transform, Validator, Dry-run, Apply, and Report.</p>
+          </section>
+
+          <section id="cmd-verify">
+            <h2>forge verify</h2>
+            <p>Re-run existing transforms in dry-run mode to verify they still produce the expected results.</p>
+            <pre>forge verify [options]
+
+Options:
+  -d, --dir &lt;path&gt;    Project directory</pre>
+          </section>
+
+          <section id="cmd-rollback">
+            <h2>forge rollback</h2>
+            <p>Restore project files from the most recent backup. Backups are created automatically when transforms are applied.</p>
+            <pre>forge rollback [options]
+
+Options:
+  -d, --dir &lt;path&gt;    Project directory</pre>
+            <p>Backups are stored in <code>.codemod-forge/backup-{timestamp}/</code>.</p>
+          </section>
+
+          <section id="cmd-report">
+            <h2>forge report</h2>
+            <p>Display the migration report from the most recent run.</p>
+            <pre>forge report [options]
+
+Options:
+  -d, --dir &lt;path&gt;    Project directory</pre>
+          </section>
+
+          <div class="divider"></div>
+
+          <section id="agents">
+            <h2>Agent Workflow</h2>
+            <p>CodeMod Forge uses a 9-agent pipeline where each agent has a specific responsibility:</p>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">1</span>
+                <div>
+                  <strong>Repository Intelligence Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Scans project, detects frameworks, counts components, finds deprecated APIs, scores health</span>
+                </div>
+              </div>
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">2</span>
+                <div>
+                  <strong>Discovery Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Mines a migration guide (built-in or custom URL)</span>
+                </div>
+              </div>
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">3</span>
+                <div>
+                  <strong>Planning Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Extracts structured breaking changes with CodeMod Engine</span>
+                </div>
+              </div>
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">4</span>
+                <div>
+                  <strong>Fixture Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Prepares before/after validation cases</span>
+                </div>
+              </div>
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">5</span>
+                <div>
+                  <strong>Transform Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Writes executable ts-morph code with detect() and apply()</span>
+                </div>
+              </div>
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">6</span>
+                <div>
+                  <strong>Validator Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Independent CodeMod Engine review with confidence scoring</span>
+                </div>
+              </div>
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">7</span>
+                <div>
+                  <strong>Dry-run Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Executes transforms in memory and shows diffs</span>
+                </div>
+              </div>
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">8</span>
+                <div>
+                  <strong>Apply Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Writes approved changes with timestamped backup</span>
+                </div>
+              </div>
+              <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+                <span class="tag tag-cyan">9</span>
+                <div>
+                  <strong>Rollback Agent</strong>
+                  <span style="color:var(--t3);font-size:13px"> — Restores from backup with one command</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="project-structure">
+            <h2>Project Structure</h2>
+            <pre>src/
+  cli.ts                         Commander.js entry with subcommands
+  scanner/project-scanner.ts     Enhanced scanner: health, components, deprecated APIs, security
+  parser/
+    changelog-fetcher.ts         Fetches built-in guides or custom --guide URL
+    breaking-change-parser.ts    CodeMod Engine extracts structured breaking changes
+  generator/
+    fixture-generator.ts         Known before/after fixtures for common migrations
+    transform-generator.ts       CodeMod Engine writes executable ts-morph transform files
+  validator/
+    edge-case-validator.ts       Independent CodeMod Engine review and confidence score
+  executor/
+    transform-loader.ts          In-memory TypeScript transform loader
+    dry-run.ts                   Executes transforms in memory and collects diffs
+    apply.ts                     Applies approved transforms
+    backup.ts                    Backs up originals under .codemod-forge/
+    rollback.ts                  Restores from most recent backup
+  display/
+    welcome.ts                   Premium CLI banner
+    prompt.ts                    Interactive and non-interactive selection
+    diff-viewer.ts               Diff preview and approval flow
+    report.ts                    Migration impact report
+  types/index.ts                 Shared TypeScript interfaces
+  lib/openai-client.ts           Centralized OpenAI client
+
+web/                             Multi-page browser experience</pre>
+          </section>
+
+          <section id="transforms">
+            <h2>Transform Engine</h2>
+            <p>Transforms are generated as TypeScript files with two exported functions:</p>
+            <pre>// Generated transform example
+export function detect(sourceFile: SourceFile): boolean {
+  // Returns true if the file contains the deprecated pattern
+  return sourceFile.getDescendantsOfKind(...)
+    .some(node => ...);
+}
+
+export function apply(sourceFile: SourceFile): void {
+  // Applies the AST transformation
+  sourceFile.getDescendantsOfKind(...)
+    .forEach(node => {
+      // Transform logic
+    });
+}</pre>
+            <p>Transforms are:</p>
+            <ul>
+              <li>Validated against before/after fixtures</li>
+              <li>Independently reviewed by CodeMod Engine</li>
+              <li>Executed in memory before touching disk</li>
+              <li>Stored in <code>.codemod-forge/transforms/</code></li>
+            </ul>
+          </section>
+
+          <div class="divider"></div>
+
+          <section id="custom-guides">
+            <h2>Custom Migration Guides</h2>
+            <p>Use any migration guide URL with the <code>--guide</code> flag:</p>
+            <pre>forge migrate my-library \
+  --from 1 --to 2 \
+  --dir ./my-app \
+  --guide https://example.com/migration-guide \
+  --all --dry-run</pre>
+            <p>The Discovery Agent will fetch the page, extract the migration content, and pass it to CodeMod Engine for breaking change analysis. Built-in guides are available for: React, Next.js, Tailwind CSS, Vue, Express, Prisma, and TypeScript.</p>
+          </section>
+
+          <section id="ci-cd">
+            <h2>CI/CD Integration</h2>
+            <p>Run CodeMod Forge in non-interactive mode for CI pipelines:</p>
+            <pre># GitHub Actions example
+- name: Run migration
+  run: |
+    npx codemod-forge migrate react \
+      --from 18 --to 19 \
+      --dir . \
+      --all --yes --no-interactive
+  env:
+    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}</pre>
+          </section>
+
+          <section id="faq">
+            <h2>FAQ</h2>
+
+            <h3>Is it safe to run on production code?</h3>
+            <p>Yes. CodeMod Forge creates a full backup before applying any changes. Use <code>--dry-run</code> first to preview, and <code>forge rollback</code> to restore if needed.</p>
+
+            <h3>Which libraries are supported?</h3>
+            <p>Built-in migration guides cover React, Next.js, Tailwind CSS, Vue, Express, Prisma, and TypeScript. You can use any library by providing a <code>--guide</code> URL.</p>
+
+            <h3>How does Transform Confidence scoring work?</h3>
+            <p>After generating a transform, an independent CodeMod Engine review analyzes the code for edge cases and produces a confidence score (0-100%) with a written explanation. Transforms below the safety threshold are flagged for manual review.</p>
+
+            <h3>Can I use it without an OpenAI API key?</h3>
+            <p>The <code>forge analyze</code> command works without an API key. All other commands that generate or validate transforms require CodeMod Engine access.</p>
+
+            <h3>How much does it cost?</h3>
+            <p>CodeMod Forge itself is free and open source. You pay only for OpenAI API usage. A typical migration uses approximately $0.50-$2.00 in API calls.</p>
+          </section>
+
+          <div style="height:64px"></div>
+        </main>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" id="main-footer"></footer>
+
+  <script src="app.js"></script>
+  <script>document.addEventListener("DOMContentLoaded",function(){(function(){
+    // Sidebar active state on scroll
+    var sections = document.querySelectorAll('section[id]');
+    var sidebarLinks = document.querySelectorAll('.doc-sidebar a');
+
+    window.addEventListener('scroll', function () {
+      var scrollPos = window.scrollY + 100;
+      sections.forEach(function (section) {
+        if (section.offsetTop <= scrollPos && section.offsetTop + section.offsetHeight > scrollPos) {
+          sidebarLinks.forEach(function (link) {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + section.id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  })();});</script>
+</body>
+</html>

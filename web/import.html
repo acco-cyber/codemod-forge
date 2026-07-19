@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Import Repository — CodeMod Forge</title>
+  <meta name="description" content="Connect GitHub, upload a ZIP, or try the demo to begin your AI-powered migration." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav" id="main-nav"></nav>
+
+  <div class="page-wrap">
+    <div class="container">
+      <div class="step-indicator" id="step-indicator"></div>
+      <div class="page-header anim">
+        <h1>Import Repository</h1>
+        <p>Connect your repository to begin the migration analysis. CodeMod Forge will automatically detect your frameworks, languages, and configuration.</p>
+      </div>
+
+      <!-- Import Methods -->
+      <div class="grid-3 anim d1" style="margin-bottom:40px">
+        <div class="card import-card" id="import-github">
+          <div class="icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></div>
+          <h3>GitHub Repository</h3>
+          <p>Paste a GitHub URL to import</p>
+        </div>
+        <div class="card import-card" id="import-upload">
+          <div class="icon" style="background:var(--violet-dim);color:var(--violet)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div>
+          <h3>Upload ZIP</h3>
+          <p>Upload a local repository archive</p>
+        </div>
+        <div class="card import-card" id="import-demo" style="border-color:var(--cyan-border)">
+          <div class="icon" style="background:var(--green-dim);color:var(--green)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <h3>Try Demo</h3>
+          <p>Explore with a sample React project</p>
+        </div>
+      </div>
+
+      <!-- GitHub URL Input -->
+      <div id="github-input" class="card anim d2" style="display:none;margin-bottom:28px">
+        <label style="font-size:13px;font-weight:600;color:var(--t2);display:block;margin-bottom:8px">GitHub Repository URL</label>
+        <div style="display:flex;gap:10px">
+          <input type="text" id="repo-url" placeholder="https://github.com/user/repository" style="
+            flex:1;padding:12px 16px;border-radius:var(--r-sm);
+            background:var(--bg);border:1px solid var(--border);
+            color:var(--t1);font-family:var(--mono);font-size:13px;
+            outline:none;transition:border-color .2s;
+          " />
+          <button class="btn btn-p btn-sm" id="import-go">Import</button>
+        </div>
+      </div>
+
+      <!-- Scanning Animation -->
+      <div id="scan-section" style="display:none">
+        <div class="card" style="text-align:center;padding:48px 24px;margin-bottom:28px">
+          <div id="scan-title" style="font-size:22px;font-weight:700;margin-bottom:28px;letter-spacing:-.02em">Scanning Repository...</div>
+          <div style="max-width:460px;margin:0 auto">
+            <div class="scan-bars" style="display:flex;flex-direction:column;gap:16px">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+                  <span>Architecture</span><span id="sp1" style="color:var(--cyan);font-variant-numeric:tabular-nums">0%</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill cyan" id="sb1"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+                  <span>Dependencies</span><span id="sp2" style="color:var(--green);font-variant-numeric:tabular-nums">0%</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill green" id="sb2"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+                  <span>Framework Detection</span><span id="sp3" style="color:var(--violet);font-variant-numeric:tabular-nums">0%</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill violet" id="sb3"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+                  <span>Technical Debt</span><span id="sp4" style="color:var(--amber);font-variant-numeric:tabular-nums">0%</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill amber" id="sb4"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+                  <span>Security Scan</span><span id="sp5" style="color:var(--cyan);font-variant-numeric:tabular-nums">0%</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill cyan" id="sb5"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:6px">
+                  <span>Migration Opportunities</span><span id="sp6" style="color:var(--green);font-variant-numeric:tabular-nums">0%</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill green" id="sb6"></div></div>
+              </div>
+            </div>
+
+            <!-- Discoveries -->
+            <div id="discoveries" style="margin-top:28px;text-align:left;display:flex;flex-direction:column;gap:8px">
+              <div class="disc" style="opacity:0;transform:translateY(8px);transition:all .4s"><span style="color:var(--green);margin-right:8px;font-weight:700">&#10003;</span> React 18.2.0 detected</div>
+              <div class="disc" style="opacity:0;transform:translateY(8px);transition:all .4s"><span style="color:var(--green);margin-right:8px;font-weight:700">&#10003;</span> TypeScript project confirmed</div>
+              <div class="disc" style="opacity:0;transform:translateY(8px);transition:all .4s"><span style="color:var(--green);margin-right:8px;font-weight:700">&#10003;</span> 24 deprecated APIs found</div>
+              <div class="disc" style="opacity:0;transform:translateY(8px);transition:all .4s"><span style="color:var(--green);margin-right:8px;font-weight:700">&#10003;</span> 728 files indexed</div>
+              <div class="disc" style="opacity:0;transform:translateY(8px);transition:all .4s"><span style="color:var(--green);margin-right:8px;font-weight:700">&#10003;</span> 3 security vulnerabilities</div>
+              <div class="disc" style="opacity:0;transform:translateY(8px);transition:all .4s"><span style="color:var(--green);margin-right:8px;font-weight:700">&#10003;</span> 6 migration opportunities identified</div>
+            </div>
+          </div>
+          <div style="margin-top:16px;font-size:12px;color:var(--t3);font-style:italic">Demo Repository &middot; Simulated Analysis</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer" id="main-footer"></footer>
+
+  <script src="app.js"></script>
+  <script>document.addEventListener("DOMContentLoaded",function(){(function(){
+    var githubInput = document.getElementById('github-input');
+    var scanSection = document.getElementById('scan-section');
+
+    document.getElementById('import-github').addEventListener('click', function () {
+      githubInput.style.display = 'block';
+      githubInput.querySelector('input').focus();
+    });
+
+    document.getElementById('import-upload').addEventListener('click', function () {
+      runScan();
+    });
+
+    document.getElementById('import-demo').addEventListener('click', function () {
+      runScan();
+    });
+
+    document.getElementById('import-go').addEventListener('click', function () {
+      runScan();
+    });
+
+    // Auto-start demo if ?demo=1
+    if (isDemoMode()) {
+      setTimeout(function () { runScan(); }, 400);
+    }
+
+    function runScan() {
+      githubInput.style.display = 'none';
+      scanSection.style.display = 'block';
+      scanSection.classList.add('anim');
+
+      var bars = [
+        { b: 'sb1', p: 'sp1', t: 94, dl: 200 },
+        { b: 'sb2', p: 'sp2', t: 88, dl: 400 },
+        { b: 'sb3', p: 'sp3', t: 100, dl: 600 },
+        { b: 'sb4', p: 'sp4', t: 76, dl: 800 },
+        { b: 'sb5', p: 'sp5', t: 92, dl: 1000 },
+        { b: 'sb6', p: 'sp6', t: 95, dl: 1200 },
+      ];
+
+      bars.forEach(function (x) {
+        setTimeout(function () {
+          animateBar(document.getElementById(x.b), x.t, 0);
+          animateCounter(document.getElementById(x.p), 0, x.t, 1200, '%');
+        }, x.dl);
+      });
+
+      // Live discoveries
+      var discs = document.querySelectorAll('.disc');
+      var delays = [800, 1200, 1600, 2000, 2400, 2800];
+      delays.forEach(function (d, i) {
+        setTimeout(function () {
+          if (discs[i]) {
+            discs[i].style.opacity = '1';
+            discs[i].style.transform = 'translateY(0)';
+          }
+        }, d);
+      });
+
+      // Transition to intelligence
+      setTimeout(function () {
+        document.getElementById('scan-title').textContent = 'Analysis Complete';
+        setTimeout(function () {
+          nextPage('/intelligence.html');
+        }, 900);
+      }, 3600);
+    }
+  })();});</script>
+</body>
+</html>
