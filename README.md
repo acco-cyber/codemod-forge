@@ -9,10 +9,6 @@
   ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝ 
   </pre>
   <br>
-  <span style="color:#B4A0FF;font-size:1.1em">⚡ Generate executable AST codemods from library migration guides</span>
-  <br>
-  <span style="color:#64748B;font-size:0.9em">Powered by Codex + GPT-5.6</span>
-</h1>
 
 ---
 
